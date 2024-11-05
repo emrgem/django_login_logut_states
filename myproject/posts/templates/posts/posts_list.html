@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}POSTS LIST{% endblock title %}
+{% block head %}
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/posts.css'%}">
+{% endblock head %}
+{% block header_image %}
+<img class="masthead-avatar mb-5" src="{% static 'assets/blog/posts.webp' %}" alt="..." />
+{% endblock header_image %}
+{% block header_title %}Posts List{% endblock header_title %}
+{% block content %}
+<div class="row justify-content-center">
+    {% for post in posts  %}
+        <div class="col-md-8">
+        <article class = "post bg-light p-4 mb-4 rounded shadow-sm">
+            <h2 class="post-title">
+                <a href="{% url 'posts:page' slug=post.slug%}">
+                {{post.title}}
+                </a>
+            </h2>
+            <p class="post-date">{{post.date}}</p>
+            <p class="post-body">{{post.body}}</p>
+        </article>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

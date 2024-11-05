@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register a New User{% endblock title %}
+
+{% block header_image %}
+    <img src="{% static 'assets/blog/register.png' %}" alt="Register" width="200px" class="register-image">
+{% endblock header_image %}
+
+{% block content %}
+    <h1>Register a New User</h1>
+    <div class="container p-4 border rounded bg-light text-dark" style="max-width: 600px">
+        <form action="/users/register/" method="post">
+            {% csrf_token %}
+            
+            <!-- Display form errors -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field in form %}
+                            {% if field.errors %}
+                                <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+                            {% endif %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <div class="row mb-3">
+                <label for="{{ form.username.id_for_label }}" class="col-sm-6 col-form-label">Username</label>
+                <div class="col-sm-6">
+                    {{ form.username }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="{{ form.email.id_for_label }}" class="col-sm-6 col-form-label">Email</label>
+                <div class="col-sm-6">
+                    {{ form.email }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="{{ form.first_name.id_for_label }}" class="col-sm-6 col-form-label">First Name</label>
+                <div class="col-sm-6">
+                    {{ form.first_name }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="{{ form.last_name.id_for_label }}" class="col-sm-6 col-form-label">Last Name</label>
+                <div class="col-sm-6">
+                    {{ form.last_name }}
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label for="{{ form.password1.id_for_label }}" class="col-sm-6 col-form-label">Password</label>
+                <div class="col-sm-6">
+                    {{ form.password1 }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="{{ form.password2.id_for_label }}" class="col-sm-6 col-form-label">Confirm Password</label>
+                <div class="col-sm-6">
+                    {{ form.password2 }}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-secondary btn-lg mt-3">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

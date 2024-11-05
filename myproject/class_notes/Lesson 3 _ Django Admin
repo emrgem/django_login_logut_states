@@ -1,0 +1,34 @@
+# bash>>> in myproject folder
+# py manage.py createsuperuser
+
+#admin.py
+from django.contrib import admin
+from .models import Post
+# Register your models here.
+admin.site.register(Post)
+
+#posts/views.py
+from .models import Post
+
+
+# Create your views here.
+def posts_list(request):
+    posts = Post.objects.all()
+    context = {
+        'active_link': 'posts',
+        'posts':posts,
+    }
+    return render(request,'posts/posts_list.html', context)
+
+#base.html
+{% block content %}{% endblock content %}
+
+# posts_list.html
+{% for post in posts  %}
+    <article class = "post">
+        <h2>{{post.title}}</h2>
+        <p>{{post.date}}</p>
+        <p>{{post.body}}</p>
+    </article>
+{% endfor %}
+{% endblock content %}

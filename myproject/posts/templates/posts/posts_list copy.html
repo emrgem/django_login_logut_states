@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}POSTS LIST{% endblock title %}
+{% block head %}
+{% load static %}
+<link href="{% static 'css/posts.css' %}" rel="stylesheet" />
+
+{% endblock head %}
+{% block header_image %}posts.webp{% endblock header_image %}
+{% block header_title %}Posts List{% endblock header_title %}
+{% block content %}
+<div class="posts-container">
+{% if posts %}
+    {% for post in posts %}
+        <article class="post">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-date">{{ post.date|date:"F j, Y" }}</p>
+            <p class="post-body">{{ post.body }}</p>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>No posts available.</p>
+{% endif %}
+</div>
+{% endblock content %}

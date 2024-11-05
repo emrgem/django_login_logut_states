@@ -1,0 +1,37 @@
+py manage.py runserver
+py manage.py migrate
+py manage.py makemigrations
+
+# Basic Querying with Django ORM
+# python shell>>> python manage.py shell
+from posts.models import Post
+new_post = Post(title='My First Post', body='This is the body of my first post.', slug='my-first-post')
+new_post.save() # saves the new post to the db
+
+# Retrieving Records:
+# python shell>>> python manage.py shell
+# Retrieves all Post records
+all_posts = Post.objects.all()
+# Retrieves the post with ID 1
+post = Post.objects.get(id=1)  
+# Filter posts by title
+specific_post = Post.objects.filter(title='My First Post')
+
+# Updating Records:
+# python shell>>> python manage.py shell
+# Get the post you want to update
+post_to_update = Post.objects.get(id=1)
+# Change the title
+post_to_update.title = 'Updated Post Title'
+# Save the changes to the database
+post_to_update.save()
+
+# Deleting Records:
+# python shell>>> python manage.py shell
+# Get the post you want to delete
+post_to_delete = Post.objects.get(id=1)
+# Deletes the post from the database
+post_to_delete.delete()
+# Deletes all posts from the Post model
+Post.objects.all().delete()
+
